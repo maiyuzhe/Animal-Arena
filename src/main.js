@@ -8,6 +8,11 @@ function init(){
     gameCard.style.height = (windowResY*0.8)+"px";
     gameCard.style['margin-top'] = '1.5%';
     loginCard.style.height = (windowResY*0.3)+"px";
+    //puts login fields in middle of div
+    for(let i = 0; i < (windowResY/200); i++){
+        loginCard.prepend(document.createElement('br'))
+    }
+    //hides form and makes game card appear
     userForm.addEventListener('submit',(e) => {
         e.preventDefault()
         gameCard.style.display ="block";
