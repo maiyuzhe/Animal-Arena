@@ -1,0 +1,14 @@
+body {
+    background-color: black;
+}
+h1 {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    color: red;
+    text-align: center;
+}
+div#game-card {
+    background-color: red;
+    margin:auto;
+    width:50%;
+    height:600px;
+}
