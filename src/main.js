@@ -1,7 +1,13 @@
 const gameCard = document.getElementById('game-card');
 const userForm = document.getElementById('user-form');
-const loginCard = document.getElementById('login-card')
+const loginCard = document.getElementById('login-card');
+const creatureImg = document.querySelector('img');
+const gameResults = document.getElementById('results')
 const windowResY = window.screen.height;
+//yes and no buttons
+const yes = document.getElementById('yes')
+const no = document.getElementById('no')
+
 //bases card size off of user's screen resolution
 function init(){
     gameCard.style.display = "none";
@@ -17,9 +23,27 @@ function init(){
         e.preventDefault()
         gameCard.style.display ="block";
         loginCard.style.display = "none";
-
+        gameResults.style.display = "none"
+        renderRandomCreature()
     })
 
 }
+//grabs random creature from api
+function renderRandomCreature() {
+    let id = Math.floor(Math.random() * 3) + 1;
+    fetch(`http://localhost:3000/creatures/${id}`)
+    .then(response => response.json())
+    .then(data => {
+        creatureImg.src = data.image;
+        creatureImg.alt = data.name
+        document.querySelector('h2').innerText = data.name
+    })
+}
+
+yes.addEventListener('click', () => {
+    yes.style.display = 'none'
+    no.style.display = 'none'
+    gameResults.style.display = 'block'
+})
 
 init()

@@ -6,10 +6,19 @@ h1 {
     color: red;
     text-align: center;
 }
+h2 {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    text-align: center;
+}
+h3 {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    text-align: center;
+}
 div#game-card {
     background-color: red;
     margin:auto;
     width:50%;
+    text-align: center;
 }
 div#login-card{
     width:30%;
@@ -23,4 +32,9 @@ form {
 .input{
     color:red;
     background-color: black;
+}
+
+img {
+    width: 450px;
+    height: auto
 }
