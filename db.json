@@ -1,0 +1,22 @@
+{
+    "creatures": [
+        {
+            "id": 1,
+            "name": "Great White Shark",
+            "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRugBpiUtru9EMCDAUcIE1S1-N3A8ns-8DIfA&usqp=CAU",
+            "deadliness": 9
+        },
+        {
+            "id": 2,
+            "name": "Baby Chick",
+            "image": "https://www.thespruce.com/thmb/ZzVUeohbUVKi-SCgLbXEHcj7oRc=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/Babychick-GettyImages-171143554-5911e8d63df78c92838d4b8c.jpg",
+            "deadliness": 1
+        },
+        {
+            "id": 3,
+            "name": "Farm Pig",
+            "image": "https://images.squarespace-cdn.com/content/v1/606653bd9ddab123a21ec44d/1617914805083-R9C05ZQYZ5CGBTAUPF6F/Secchiaroli+Farm+connecticut+-+00100lPORTRAIT_00100_BURST20210327140523889_COVER.jpg?format=2500w",
+            "deadliness": 6
+        }
+    ]
+}

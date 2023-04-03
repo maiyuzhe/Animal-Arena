@@ -1,6 +1,7 @@
 const gameCard = document.getElementById('game-card');
 const userForm = document.getElementById('user-form');
-const loginCard = document.getElementById('login-card')
+const loginCard = document.getElementById('login-card');
+const creatureImg = document.querySelector('img');
 const windowResY = window.screen.height;
 //bases card size off of user's screen resolution
 function init(){
@@ -17,9 +18,17 @@ function init(){
         e.preventDefault()
         gameCard.style.display ="block";
         loginCard.style.display = "none";
-
+        renderRandomCreature()
     })
 
 }
-
+//grabs random creature from api
+function renderRandomCreature() {
+    let id = Math.floor(Math.random() * 3) + 1;
+    fetch(`http://localhost:3000/creatures/${id}`)
+    .then(response => response.json())
+    .then(data => {
+        creatureImg.src = data.image;
+    })
+}
 init()
