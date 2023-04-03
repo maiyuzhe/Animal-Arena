@@ -12,6 +12,7 @@ let usedAnimal = []
 //Survival Score and Username
 let survivalScore = 0
 let username = ''
+console.log(survivalScore)
 
 //bases card size off of user's screen resolution
 function init(){
@@ -33,6 +34,8 @@ function init(){
             loginCard.style.display = "none";
             gameResults.style.display = "none"
             renderRandomCreature()
+            generateSurvivalScore(e)
+            console.log(survivalScore)
         }
     })
 
@@ -73,6 +76,41 @@ no.addEventListener('click', () => {
         renderRandomCreature()}, 500);
         //change delay back to 3000 later
 })
+
+//generate the survival score
+function generateSurvivalScore(e) {
+    let heightScore = 0;
+    let gymScore = 0;
+    
+    switch (e.target.height.value) {
+        case 'short':
+            heightScore = 2;
+            break;
+        case "average":
+            heightScore = 4;
+            break;
+        case 'tall':
+            heightScore = 6;
+            break;
+    }
+
+    switch (e.target.gym.value) {
+        case 'years':
+            gymScore = -1;
+            break;
+        case 'months':
+            gymScore = 1;
+            break;
+        case 'days':
+            gymScore = 3;
+            break;
+        case 'hours':
+            gymScore = 6;
+            break;
+    }
+    console.log(heightScore, gymScore)
+    return survivalScore = heightScore + gymScore
+}
 
 init()
 
