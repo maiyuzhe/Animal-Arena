@@ -14,6 +14,7 @@ devMode()
 
 //Survival Score and Username
 let survivalScore = 0
+let deadlinessScore = 0
 let username = ''
 
 //bases card size off of user's screen resolution
@@ -35,6 +36,9 @@ function init(){
             gameCard.style.display ="block";
             loginCard.style.display = "none";
             gameResults.style.display = "none"
+            generateSurvivalScore(e)
+            username = e.target['user-name'].value
+            console.log(username)
             renderRandomCreature(randomArray[0])
         }
     })
@@ -48,6 +52,7 @@ function renderRandomCreature(id) {
     .then(data => {
         creatureImg.src = data.image;
         creatureImg.alt = data.name
+        deadlinessScore = data.deadliness
         document.querySelector('h2').innerText = data.name
         gameResults.style.display = 'none'
     })
@@ -59,6 +64,11 @@ yes.addEventListener('click', () => {
     yes.style.display = 'none'
     no.style.display = 'none'
     gameResults.style.display = 'inline-block'
+    if (survivalResults()) {
+        console.log("Have more confidence, you're good")
+    } else {
+        console.log("Yah, you better run")
+    }
     setTimeout(() => { 
         yes.style.display = 'inline-block'
         no.style.display = 'inline-block'
@@ -70,12 +80,62 @@ no.addEventListener('click', () => {
     yes.style.display = 'none'
     no.style.display = 'none'
     gameResults.style.display = 'inline-block'
+    if (survivalResults()) {
+        console.log("Yah, you're right you monster")
+    } else {
+        console.log("No, you're dead")
+    }
     setTimeout(() => { 
         yes.style.display = 'inline-block'
         no.style.display = 'inline-block'
         renderRandomCreature(randomArray[0])}, 500);
         //change delay back to 3000 later
 })
+
+//generate the survival score
+function generateSurvivalScore(e) {
+    let heightScore = 0;
+    let gymScore = 0;
+    
+    switch (e.target.height.value) {
+        case 'short':
+            heightScore = 2;
+            break;
+        case "average":
+            heightScore = 4;
+            break;
+        case 'tall':
+            heightScore = 6;
+            break;
+    }
+
+    switch (e.target.gym.value) {
+        case 'years':
+            gymScore = -1;
+            break;
+        case 'months':
+            gymScore = 1;
+            break;
+        case 'days':
+            gymScore = 3;
+            break;
+        case 'hours':
+            gymScore = 6;
+            break;
+    }
+    return survivalScore = heightScore + gymScore
+}
+
+//calculates survial odds
+function survivalResults() {
+    if (survivalScore >= deadlinessScore) {
+        console.log('Survive')
+        return true
+    } else {
+        console.log('Die')
+        return false
+    }
+}
 
 init()
 //added developer mode so we don't have to fill the fields out each test
