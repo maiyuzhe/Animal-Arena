@@ -12,7 +12,6 @@ let usedAnimal = []
 //Survival Score and Username
 let survivalScore = 0
 let username = ''
-console.log(survivalScore)
 
 //bases card size off of user's screen resolution
 function init(){
@@ -35,7 +34,8 @@ function init(){
             gameResults.style.display = "none"
             renderRandomCreature()
             generateSurvivalScore(e)
-            console.log(survivalScore)
+            username = e.target['user-name'].value
+            console.log(username)
         }
     })
 
@@ -108,7 +108,6 @@ function generateSurvivalScore(e) {
             gymScore = 6;
             break;
     }
-    console.log(heightScore, gymScore)
     return survivalScore = heightScore + gymScore
 }
 
