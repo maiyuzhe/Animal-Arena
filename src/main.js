@@ -29,6 +29,9 @@ function renderRandomCreature() {
     .then(response => response.json())
     .then(data => {
         creatureImg.src = data.image;
+        creatureImg.alt = data.name
+        document.querySelector('h2').innerText = data.name
     })
 }
+
 init()
