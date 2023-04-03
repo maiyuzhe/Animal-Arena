@@ -7,13 +7,14 @@ const windowResY = window.screen.height;
 //yes and no buttons
 const yes = document.getElementById('yes')
 const no = document.getElementById('no')
+let usedAnimal = []
 
 //bases card size off of user's screen resolution
 function init(){
     gameCard.style.display = "none";
-    gameCard.style.height = (windowResY*0.8)+"px";
+    gameCard.style.height = (windowResY*0.7)+"px";
     gameCard.style['margin-top'] = '1.5%';
-    loginCard.style.height = (windowResY*0.3)+"px";
+    loginCard.style.height = (windowResY*0.4)+"px";
     //puts login fields in middle of div
     for(let i = 0; i < (windowResY/200); i++){
         loginCard.prepend(document.createElement('br'))
@@ -34,16 +35,36 @@ function renderRandomCreature() {
     fetch(`http://localhost:3000/creatures/${id}`)
     .then(response => response.json())
     .then(data => {
+        usedAnimal = [id, ...usedAnimal]
+        console.log(usedAnimal)
         creatureImg.src = data.image;
         creatureImg.alt = data.name
         document.querySelector('h2').innerText = data.name
+        gameResults.style.display = 'none'
     })
 }
 
 yes.addEventListener('click', () => {
     yes.style.display = 'none'
     no.style.display = 'none'
-    gameResults.style.display = 'block'
+    gameResults.style.display = 'inline-block'
+    setTimeout(() => { 
+        yes.style.display = 'inline-block'
+        no.style.display = 'inline-block'
+        renderRandomCreature()}, 500);
+        //change delay back to 3000 later
+})
+
+no.addEventListener('click', () => {
+    yes.style.display = 'none'
+    no.style.display = 'none'
+    gameResults.style.display = 'inline-block'
+    setTimeout(() => { 
+        yes.style.display = 'inline-block'
+        no.style.display = 'inline-block'
+        renderRandomCreature()}, 500);
+        //change delay back to 3000 later
 })
 
 init()
+
