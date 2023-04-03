@@ -8,6 +8,10 @@ const windowResY = window.screen.height;
 const yes = document.getElementById('yes')
 const no = document.getElementById('no')
 
+//Survival Score and Username
+let survivalScore = 0
+let username = ''
+
 //bases card size off of user's screen resolution
 function init(){
     gameCard.style.display = "none";
@@ -21,16 +25,20 @@ function init(){
     //hides form and makes game card appear
     userForm.addEventListener('submit',(e) => {
         e.preventDefault()
-        gameCard.style.display ="block";
-        loginCard.style.display = "none";
-        gameResults.style.display = "none"
-        renderRandomCreature()
+        if (e.target['user-name'].value.length === 0 || e.target.gym.value === '' || e.target.height.value === '') {
+            alert('Test')
+        } else {
+            gameCard.style.display ="block";
+            loginCard.style.display = "none";
+            gameResults.style.display = "none"
+            renderRandomCreature()
+        }
     })
 
 }
 //grabs random creature from api
 function renderRandomCreature() {
-    let id = Math.floor(Math.random() * 3) + 1;
+    let id = Math.floor(Math.random() * 20) + 1;
     fetch(`http://localhost:3000/creatures/${id}`)
     .then(response => response.json())
     .then(data => {
