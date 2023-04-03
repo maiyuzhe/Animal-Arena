@@ -20,7 +20,105 @@
         },
         {
             "id": 4,
-            "name": 
+            "name": "Anaconda",
+            "image": "https://worldanimalfoundation.org/wp-content/uploads/2023/01/Lifespan-review-1.jpg",
+            "deadliness": 7
+        },
+        {
+            "id": 5,
+            "name": "Alligator Snapping Turtle",
+            "image": "http://www.nwf.org/-/media/NEW-WEBSITE/Shared-Folder/Wildlife/Reptiles/reptile_alligator-snapping-turtle_600x300.ashx",
+            "deadliness": 6
+        },
+        {
+            "id": 6,
+            "name": "Coyote",
+            "image": "https://calmzoo.org/wp-content/uploads/2016/09/Coyote2.jpg",
+            "deadliness": 4
+        },
+        {
+            "id": 7,
+            "name": "Golden Retriever",
+            "image": "https://heronscrossing.vet/wp-content/uploads/Golden-Retriever-1024x683.jpg",
+            "deadliness": 2
+        },
+        {
+            "id": 8,
+            "name": "Scorpion",
+            "image": "https://a-z-animals.com/media/2018/09/Scorpion-header.jpg",
+            "deadliness": 5
+        },
+        {
+            "id": 9,
+            "name": "Ladybug",
+            "image": "https://i.natgeofe.com/k/d987f7b2-1895-4978-9216-3f365ea51a34/ladybug-daisy_3x2.jpg",
+            "deadliness": 1
+        },
+        {
+            "id": 10,
+            "name": "Lion",
+            "image": "https://i2-prod.mirror.co.uk/incoming/article28358841.ece/ALTERNATES/s615/0_Roaring-lion-photographed-from-close-up-Lalibela-Game-Reserve-Eastern-Cape-South-Africa.jpg",
+            "deadliness": 9
+        },
+        {
+            "id": 11,
+            "name": "Crocodile",
+            "image": "https://upload.wikimedia.org/wikipedia/commons/7/76/Bazoule_sacred_crocodiles_MS_6709cropped.JPG",
+            "deadliness": 9
+        },
+        {
+            "id": 12,
+            "name": "Hippo",
+            "image": "https://cdn.creatureandcoagency.com/uploads/2017/09/Hippo-Facts-2.jpg",
+            "deadliness": 10
+        },
+        {
+            "id": 13,
+            "name": "Wasp",
+            "image": "https://images.everydayhealth.com/images/skin-beauty/bug-bites/did-a-wasp-sting-me-00-722x406.jpg",
+            "deadliness": 5
+        },
+        {
+            "id": 14,
+            "name": "Killer Whale",
+            "image": "https://cdn.theatlantic.com/thumbor/SegrRG9vk_1InxeUVnUgLE-szWc=/686x0:3429x2743/1080x1080/media/img/mt/2019/04/shutterstock_554899423_1/original.jpg",
+            "deadliness": 7
+        },
+        {
+            "id": 15,
+            "name": "King Cobra",
+            "image": "https://d.newsweek.com/en/full/2038067/cobra.jpg?w=1600&h=1600&q=88&f=cad280526507a490404a3dd5bd8e8f1c",
+            "deadliness": 8
+        },
+        {
+            "id": 16,
+            "name": "Subway Rat",
+            "image": "https://nypost.com/wp-content/uploads/sites/2/2020/11/human-rat-subway.jpg?quality=75&strip=all",
+            "deadliness": 6
+        },
+        {
+            "id": 17,
+            "name": "Bald Eagle",
+            "image": "https://upload.wikimedia.org/wikipedia/commons/1/1a/About_to_Launch_%2826075320352%29.jpg",
+            "deadliness": 6
+        },
+        {
+            "id": 18,
+            "name": "Baby Penguin",
+            "image": "https://i.pinimg.com/564x/b1/ea/56/b1ea5612fd7b5988c8f6f7479d48ed51.jpg",
+            "deadliness": 2
+        },
+        {
+            "id": 19,
+            "name": "Grizzly Bear",
+            "image": "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T1/images/I/71ThbaS0JvL._AC_UF894,1000_QL80_.jpg",
+            "deadliness": 9
+        },
+        {
+            "id": 20,
+            "name": "Drugs",
+            "image": "https://ichef.bbci.co.uk/news/976/cpsprodpb/12DD4/production/_124986277_tv063802223.jpg",
+            "deadliness": 1000
         }
     ]
 }
