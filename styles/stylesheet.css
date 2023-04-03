@@ -57,3 +57,7 @@ span#bool-question button#no{
     color: red;
     background-color: black;
 }
+img#animal-image{
+    margin:auto;
+    width: 75%;
+}
