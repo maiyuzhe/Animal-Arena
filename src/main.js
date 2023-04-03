@@ -11,6 +11,7 @@ let usedAnimal = []
 
 //Survival Score and Username
 let survivalScore = 0
+let deadlinessScore = 0
 let username = ''
 
 //bases card size off of user's screen resolution
@@ -50,6 +51,7 @@ function renderRandomCreature() {
         console.log(usedAnimal)
         creatureImg.src = data.image;
         creatureImg.alt = data.name
+        deadlinessScore = data.deadliness
         document.querySelector('h2').innerText = data.name
         gameResults.style.display = 'none'
     })
@@ -59,6 +61,11 @@ yes.addEventListener('click', () => {
     yes.style.display = 'none'
     no.style.display = 'none'
     gameResults.style.display = 'inline-block'
+    if (survivalResults()) {
+        console.log("Have more confidence, you're good")
+    } else {
+        console.log("Yah, you better run")
+    }
     setTimeout(() => { 
         yes.style.display = 'inline-block'
         no.style.display = 'inline-block'
@@ -70,6 +77,11 @@ no.addEventListener('click', () => {
     yes.style.display = 'none'
     no.style.display = 'none'
     gameResults.style.display = 'inline-block'
+    if (survivalResults()) {
+        console.log("Yah, you're right you monster")
+    } else {
+        console.log("No, you're dead")
+    }
     setTimeout(() => { 
         yes.style.display = 'inline-block'
         no.style.display = 'inline-block'
@@ -109,6 +121,17 @@ function generateSurvivalScore(e) {
             break;
     }
     return survivalScore = heightScore + gymScore
+}
+
+//calculates survial odds
+function survivalResults() {
+    if (survivalScore >= deadlinessScore) {
+        console.log('Survive')
+        return true
+    } else {
+        console.log('Die')
+        return false
+    }
 }
 
 init()
