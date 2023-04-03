@@ -40,16 +40,25 @@ function init(){
 //grabs random creature from api
 function renderRandomCreature() {
     let id = Math.floor(Math.random() * 20) + 1;
-    fetch(`http://localhost:3000/creatures/${id}`)
-    .then(response => response.json())
-    .then(data => {
-        usedAnimal = [id, ...usedAnimal]
-        console.log(usedAnimal)
-        creatureImg.src = data.image;
-        creatureImg.alt = data.name
-        document.querySelector('h2').innerText = data.name
-        gameResults.style.display = 'none'
+    const filteredAnimal = usedAnimal.find((elem) => {
+        while (elem == id){
+            const arrayCheck = [];
+            arrayCheck.push(elem)
+            console.log(arrayCheck)
+            return console.log("on to the next item in the list")
+        }
+        fetch(`http://localhost:3000/creatures/${id}`)
+        .then(response => response.json())
+        .then(data => {
+            creatureImg.src = data.image;
+            creatureImg.alt = data.name
+            document.querySelector('h2').innerText = data.name
+            gameResults.style.display = 'none'
+        })
     })
+    usedAnimal = [id, ...usedAnimal]
+    
+
 }
 
 yes.addEventListener('click', () => {
@@ -75,4 +84,17 @@ no.addEventListener('click', () => {
 })
 
 init()
-
+//added developer mode so we don't have to fill the fields out each test
+function devMode(){
+    const devButton = document.createElement('button')
+    loginCard.append(devButton)
+    devButton.textContent = "Developer Mode"
+    devButton.addEventListener(('click'), () => {
+        gameCard.style.display ="block";
+        loginCard.style.display = "none";
+        gameResults.style.display = "none"
+        survivalScore = 10;
+        username = "dev";
+        renderRandomCreature()
+    })
+}
