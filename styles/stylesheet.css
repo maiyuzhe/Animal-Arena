@@ -1,17 +1,21 @@
+@font-face {
+    font-family: myFirstFont;
+    src: url(../fonts/spooky.otf);
+
+}
 body {
     background-color: black;
+    font-family: MyFirstFont;
+    letter-spacing: 5px;
 }
 h1 {
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     color: red;
     text-align: center;
 }
 h2 {
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     text-align: center;
 }
 h3 {
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     text-align: center;
 }
 div#game-card {
@@ -19,6 +23,8 @@ div#game-card {
     margin:auto;
     width:50%;
     text-align: center;
+    background-image: url(../images/blood_card.png);
+    background-position: center;
 }
 div#login-card{
     width:30%;
@@ -32,9 +38,22 @@ form {
 .input{
     color:red;
     background-color: black;
+    border-radius: 10px;
 }
 
 img {
     width: 450px;
     height: auto
+}
+span#bool-question button#yes{
+    border-radius: 10px;
+    margin:auto;
+    color:red;
+    background-color: black;
+}
+span#bool-question button#no{
+    border-radius: 10px;
+    margin:auto;
+    color: red;
+    background-color: black;
 }
