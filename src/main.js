@@ -7,7 +7,10 @@ const windowResY = window.screen.height;
 //yes and no buttons
 const yes = document.getElementById('yes')
 const no = document.getElementById('no')
-let usedAnimal = []
+let randomArray = []
+generateArray()
+//can toggle devmode by commenting it out
+devMode()
 
 //Survival Score and Username
 let survivalScore = 0
@@ -20,7 +23,7 @@ function init(){
     gameCard.style['margin-top'] = '1.5%';
     loginCard.style.height = (windowResY*0.4)+"px";
     //puts login fields in middle of div
-    for(let i = 0; i < (windowResY/600); i++){
+    for(let i = 0; i < (windowResY/800); i++){
         loginCard.prepend(document.createElement('br'))
     }
     //hides form and makes game card appear
@@ -32,24 +35,24 @@ function init(){
             gameCard.style.display ="block";
             loginCard.style.display = "none";
             gameResults.style.display = "none"
-            renderRandomCreature()
+            renderRandomCreature(randomArray[0])
         }
     })
 
 }
 //grabs random creature from api
-function renderRandomCreature() {
-    let id = Math.floor(Math.random() * 20) + 1;
+function renderRandomCreature(id) {
+    console.log(randomArray)
     fetch(`http://localhost:3000/creatures/${id}`)
     .then(response => response.json())
     .then(data => {
-        usedAnimal = [id, ...usedAnimal]
-        console.log(usedAnimal)
         creatureImg.src = data.image;
         creatureImg.alt = data.name
         document.querySelector('h2').innerText = data.name
         gameResults.style.display = 'none'
     })
+    //removes the first index of the array each time this function is called
+    randomArray.shift()
 }
 
 yes.addEventListener('click', () => {
@@ -59,7 +62,7 @@ yes.addEventListener('click', () => {
     setTimeout(() => { 
         yes.style.display = 'inline-block'
         no.style.display = 'inline-block'
-        renderRandomCreature()}, 500);
+        renderRandomCreature(randomArray[0])}, 500);
         //change delay back to 3000 later
 })
 
@@ -70,9 +73,36 @@ no.addEventListener('click', () => {
     setTimeout(() => { 
         yes.style.display = 'inline-block'
         no.style.display = 'inline-block'
-        renderRandomCreature()}, 500);
+        renderRandomCreature(randomArray[0])}, 500);
         //change delay back to 3000 later
 })
 
 init()
+//added developer mode so we don't have to fill the fields out each test
+function devMode(){
+    const devButton = document.createElement('button')
+    loginCard.append(devButton)
+    devButton.textContent = "Developer Mode"
+    devButton.addEventListener(('click'), () => {
+        gameCard.style.display ="block";
+        loginCard.style.display = "none";
+        gameResults.style.display = "none"
+        survivalScore = 10;
+        username = "dev";
+        renderRandomCreature(randomArray[0])
+    })
+}
 
+//populates random array with non-repeating integers
+function generateArray(){
+    for (let i = 0; i < 20; i++){
+        let id = Math.floor(Math.random() * 20) + 1;
+        if(randomArray.includes(id) == true){
+            i=i-1;
+        }else{
+            if(id>20==false){
+                randomArray.push(id);
+            }
+        }
+    }
+}
