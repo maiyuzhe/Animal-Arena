@@ -23,6 +23,8 @@ div#game-card {
     margin:auto;
     width:50%;
     text-align: center;
+    background-image: url(../images/blood_card.png);
+    background-position: center;
 }
 div#login-card{
     width:30%;
@@ -36,6 +38,7 @@ form {
 .input{
     color:red;
     background-color: black;
+    border-radius: 10px;
 }
 
 img {
@@ -43,11 +46,13 @@ img {
     height: auto
 }
 span#bool-question button#yes{
+    border-radius: 10px;
     margin:auto;
     color:red;
     background-color: black;
 }
 span#bool-question button#no{
+    border-radius: 10px;
     margin:auto;
     color: red;
     background-color: black;
