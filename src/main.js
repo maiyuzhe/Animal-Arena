@@ -4,6 +4,7 @@ const loginCard = document.getElementById('login-card');
 const creatureImg = document.querySelector('img');
 const gameResults = document.getElementById('results')
 const windowResY = window.screen.height;
+const headerTwo = document.querySelector('h2')
 //yes and no buttons
 const yes = document.getElementById('yes')
 const no = document.getElementById('no')
@@ -53,7 +54,7 @@ function renderRandomCreature(id) {
         creatureImg.src = data.image;
         creatureImg.alt = data.name
         deadlinessScore = data.deadliness
-        document.querySelector('h2').innerText = data.name
+        headerTwo.innerText = data.name
         gameResults.style.display = 'none'
     })
     //removes the first index of the array each time this function is called
@@ -69,10 +70,7 @@ yes.addEventListener('click', () => {
     } else {
         gameResults.innerText = `Yah ${username}, you better run`
     }
-    setTimeout(() => { 
-        yes.style.display = 'inline-block'
-        no.style.display = 'inline-block'
-        renderRandomCreature(randomArray[0])}, 500);
+    setTimeout(nextCard(randomArray[0]), 500);
         //change delay back to 3000 later
 })
 
@@ -83,12 +81,9 @@ no.addEventListener('click', () => {
     if (survivalResults()) {
         gameResults.innerText = `Yah ${username}, you're right you monster`
     } else {
-        gameResults.innerText = `No ${userrname} no, you're dead`
+        gameResults.innerText = `No ${username} no, you're dead`
     }
-    setTimeout(() => { 
-        yes.style.display = 'inline-block'
-        no.style.display = 'inline-block'
-        renderRandomCreature(randomArray[0])}, 500);
+    setTimeout(nextCard(randomArray[0]), 500);
         //change delay back to 3000 later
 })
 
@@ -155,7 +150,7 @@ function devMode(){
 
 //populates random array with non-repeating integers
 function generateArray(){
-    for (let i = 0; i < 20; i++){
+    for (let i = 0; i < 5; i++){
         let id = Math.floor(Math.random() * 20) + 1;
         if(randomArray.includes(id) == true){
             i=i-1;
@@ -165,4 +160,39 @@ function generateArray(){
             }
         }
     }
+}
+//arg1 should be array[0]
+function nextCard(arg1){
+    show()
+    if(arg1 === undefined){
+        headerTwo.textContent = "Leaderboard"
+        hide()
+        playAgain.style.display = "inline-block"
+        gameCard.append(playAgain)
+    }
+    else(renderRandomCreature(arg1))
+}
+//play again button
+const playAgain = document.createElement('button')
+playAgain.textContent = "Play Again?"
+playAgain.addEventListener('click', () => {
+    generateArray()
+    console.log(randomArray)
+    show()
+    renderRandomCreature(randomArray[0])
+    //hidden to start the game, will be shown upon the emptying of array
+    playAgain.style.display = "none"
+})
+
+function hide(){
+    yes.style.display = 'none'
+    no.style.display = 'none'
+    creatureImg.style.display = 'none'
+    gameResults.style.display = 'none'
+}
+function show(){
+    yes.style.display = 'inline-block'
+    no.style.display = 'inline-block'
+    creatureImg.style.display = 'block'
+    gameResults.style.display = 'block'
 }
