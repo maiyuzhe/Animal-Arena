@@ -121,12 +121,11 @@
             "deadliness": 1000
         }
     ],
-    
-    "users": [
+    "leaderboard": [
         {
             "id": 1,
-            "name": "Dev",
-            "score": 10
+            "name": "user one",
+            "score": 5
         }
     ]
 }

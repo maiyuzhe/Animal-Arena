@@ -5,6 +5,8 @@ const creatureImg = document.querySelector('img');
 const gameResults = document.getElementById('results')
 const windowResY = window.screen.height;
 const headerTwo = document.querySelector('h2')
+const leaderboardCard = document.createElement('div')
+leaderboardCard.id = 'leaderboard-card'
 //yes and no buttons
 const yes = document.getElementById('yes')
 const no = document.getElementById('no')
@@ -191,6 +193,8 @@ function nextCard(arg1){
     if(arg1 === undefined){
         headerTwo.textContent = "Leaderboard"
         hideGame()
+        renderLeaderboard()
+        gameCard.append(document.createElement('br'))
         gameCard.append(playAgain)
         playAgain.style.display = "inline-block"
     }
@@ -214,10 +218,25 @@ function hideGame(){
     no.style.display = 'none'
     creatureImg.style.display = 'none'
     gameResults.style.display = 'none'
+    leaderboardCard.style.display = 'inline-block'
 }
 function showGame(){
     yes.style.display = 'inline-block'
     no.style.display = 'inline-block'
     creatureImg.style.display = 'block'
     gameResults.style.display = 'inline-block'
+    leaderboardCard.style.display = 'none'
+}
+
+function renderLeaderboard(){
+    gameCard.append(leaderboardCard)
+    fetch("http://localhost:3000/leaderboard")
+    .then(res => res.json())
+    .then((data) => {
+        data.forEach((datum) => {
+            const leaderboardEntry = document.createElement('p')
+            leaderboardEntry.textContent = `User: ${datum.name} --- Score: ${datum.score}`
+            leaderboardCard.append(leaderboardEntry)
+        })
+    })
 }
