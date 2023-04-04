@@ -12,6 +12,7 @@ leaderboardCard.id = 'leaderboard-card'
 const yes = document.getElementById('yes')
 const no = document.getElementById('no')
 let randomArray = []
+const lastEntry = document.createElement('p')
 generateArray()
 //can toggle devmode by commenting it out
 devMode()
@@ -92,6 +93,8 @@ yes.addEventListener('click', () => {
             hideGame()
             gameCard.append(playAgain)
             playAgain.style.display = "inline-block"
+            console.log(finalScore)
+            patchScore(finalScore)
         }
     } else {
         gameResults.innerText = `Yah ${username}, you better run`
@@ -211,6 +214,7 @@ function nextCard(arg1){
         hideGame()
         clearScoreboard()
         renderLeaderboard()
+        patchScore(finalScore)
         gameCard.append(document.createElement('br'))
         gameCard.append(playAgain)
         playAgain.style.display = "inline-block"
@@ -230,6 +234,7 @@ playAgain.addEventListener('click', () => {
     playAgain.style.display = "none"
     lifebar = ['X', 'X', 'X']
     addHealthBar(lifebar)
+    leaderboardCard.removeChild(lastEntry)
 })
 
 function hideGame(){
@@ -253,9 +258,12 @@ function renderLeaderboard(){
     .then(res => res.json())
     .then((data) => {
         data.forEach((datum) => {
-            const leaderboardEntry = document.createElement('p')
-            leaderboardEntry.textContent = `User: ${datum.name} --- Score: ${datum.score}`
-            leaderboardCard.append(leaderboardEntry)
+            if(datum.score === undefined){}
+            else{
+                const leaderboardEntry = document.createElement('p')
+                leaderboardEntry.textContent = `User: ${datum.name} --- Score: ${datum.score}`
+                leaderboardCard.append(leaderboardEntry)
+            }
         })
     })
 }
@@ -278,6 +286,8 @@ function patchScore(userScore){
     fetch("http://localhost:3000/leaderboard")
     .then(res => res.json())
     .then((data) => {
+        lastEntry.textContent = `User: ${data[data.length -1 ].name} --- Score: ${userScore}`
+        leaderboardCard.append(lastEntry)
         console.log(data[data.length -1].id)
         let id = data[data.length -1].id
         fetch(`http://localhost:3000/leaderboard/${id}`, {
@@ -286,6 +296,6 @@ function patchScore(userScore){
                 "Content-type": "application/json"
             },
             body: JSON.stringify({score:userScore})
+            })
         })
-    })
 }
