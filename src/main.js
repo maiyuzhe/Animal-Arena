@@ -253,7 +253,7 @@ function renderLeaderboard(){
 }
 
 function addHealthBar(lifeArray) {
-    addHealthBar.innerHTML = ''
+    healthBar.innerHTML = ''
     lifeArray.forEach(heart => {
         let p = document.createElement('p').innerHTML = heart
         healthBar.append(p)
