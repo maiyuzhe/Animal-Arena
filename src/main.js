@@ -43,6 +43,13 @@ function init(){
             gameResults.style.display = "none"
             generateSurvivalScore(e)
             username = e.target['user-name'].value
+            fetch("http://localhost:3000/leaderboard", {
+                method: "POST",
+                headers: {
+                    "Content-type": "application/json"
+                },
+                body: JSON.stringify({name: username})
+            })
             console.log(username)
             renderRandomCreature(randomArray[0])
         }
