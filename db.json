@@ -121,7 +121,7 @@
             "deadliness": 1000
         }
     ],
-    "leaderboard":[
+    "leaderboard": [
         {
             "id": 1,
             "name": "user one",
