@@ -163,12 +163,12 @@ function generateArray(){
 }
 //arg1 should be array[0]
 function nextCard(arg1){
-    show()
+    showGame()
     if(arg1 === undefined){
         headerTwo.textContent = "Leaderboard"
-        hide()
-        playAgain.style.display = "inline-block"
+        hideGame()
         gameCard.append(playAgain)
+        playAgain.style.display = "inline-block"
     }
     else(renderRandomCreature(arg1))
 }
@@ -178,19 +178,19 @@ playAgain.textContent = "Play Again?"
 playAgain.addEventListener('click', () => {
     generateArray()
     console.log(randomArray)
-    show()
+    showGame()
     renderRandomCreature(randomArray[0])
     //hidden to start the game, will be shown upon the emptying of array
     playAgain.style.display = "none"
 })
 
-function hide(){
+function hideGame(){
     yes.style.display = 'none'
     no.style.display = 'none'
     creatureImg.style.display = 'none'
     gameResults.style.display = 'none'
 }
-function show(){
+function showGame(){
     yes.style.display = 'inline-block'
     no.style.display = 'inline-block'
     creatureImg.style.display = 'block'

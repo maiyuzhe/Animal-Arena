@@ -59,13 +59,7 @@ img {
     width: 450px;
     height: auto
 }
-span#bool-question button#yes{
-    border-radius: 10px;
-    margin:auto;
-    color:red;
-    background-color: black;
-}
-span#bool-question button#no{
+button{
     border-radius: 10px;
     margin:auto;
     color: red;
