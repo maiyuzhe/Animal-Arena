@@ -65,9 +65,9 @@ yes.addEventListener('click', () => {
     no.style.display = 'none'
     gameResults.style.display = 'inline-block'
     if (survivalResults()) {
-        console.log("Have more confidence, you're good")
+        gameResults.innerText = `Have more confidence ${username}, you're good`
     } else {
-        console.log("Yah, you better run")
+        gameResults.innerText = `Yah ${username}, you better run`
     }
     setTimeout(() => { 
         yes.style.display = 'inline-block'
@@ -81,9 +81,9 @@ no.addEventListener('click', () => {
     no.style.display = 'none'
     gameResults.style.display = 'inline-block'
     if (survivalResults()) {
-        console.log("Yah, you're right you monster")
+        gameResults.innerText = `Yah ${username}, you're right you monster`
     } else {
-        console.log("No, you're dead")
+        gameResults.innerText = `No ${userrname} no, you're dead`
     }
     setTimeout(() => { 
         yes.style.display = 'inline-block'
