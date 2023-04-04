@@ -19,7 +19,7 @@ let deadlinessScore = 0
 let username = ''
 let finalScore = 0
 let lifebar = ['X', 'X', 'X'];
-
+console.log(lifebar)
 //bases card size off of user's screen resolution
 function init(){
     gameCard.style.display = "none";
@@ -69,8 +69,15 @@ yes.addEventListener('click', () => {
     gameResults.style.display = 'inline-block'
     if (survivalResults()) {
         gameResults.innerText = `Have more confidence ${username}, you're good`
-        if (lifebar.length !== 0) {
+        if (lifebar.length > 1) {
             lifebar.pop()
+        } else if (lifebar.length === 1) {
+            lifebar.pop()
+            randomArray = []
+            headerTwo.textContent = "Leaderboard"
+            hideGame()
+            gameCard.append(playAgain)
+            playAgain.style.display = "inline-block"
         }
     } else {
         gameResults.innerText = `Yah ${username}, you better run`
@@ -89,8 +96,15 @@ no.addEventListener('click', () => {
         finalScore += 1
     } else {
         gameResults.innerText = `No ${username} no, you're dead`
-        if (lifebar.length !== 0) {
+        if (lifebar.length > 1) {
             lifebar.pop()
+        } else if (lifebar.length === 1) {
+            lifebar.pop()
+            randomArray = []
+            headerTwo.textContent = "Leaderboard"
+            hideGame()
+            gameCard.append(playAgain)
+            playAgain.style.display = "inline-block"
         }
     }
     setTimeout(nextCard(randomArray[0]), 500);
@@ -192,6 +206,7 @@ playAgain.addEventListener('click', () => {
     renderRandomCreature(randomArray[0])
     //hidden to start the game, will be shown upon the emptying of array
     playAgain.style.display = "none"
+    lifebar = ['X', 'X', 'X']
 })
 
 function hideGame(){
