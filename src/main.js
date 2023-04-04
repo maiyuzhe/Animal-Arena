@@ -6,6 +6,7 @@ const gameResults = document.getElementById('results')
 const windowResY = window.screen.height;
 const headerTwo = document.querySelector('h2')
 const leaderboardCard = document.createElement('div')
+const healthBar = document.getElementById('health-bar')
 leaderboardCard.id = 'leaderboard-card'
 //yes and no buttons
 const yes = document.getElementById('yes')
@@ -20,8 +21,8 @@ let survivalScore = 0
 let deadlinessScore = 0
 let username = ''
 let finalScore = 0
-let lifebar = ['X', 'X', 'X'];
-console.log(lifebar)
+let lifebar = ['X', 'X', 'X']
+
 //bases card size off of user's screen resolution
 function init(){
     gameCard.style.display = "none";
@@ -45,6 +46,7 @@ function init(){
             username = e.target['user-name'].value
             console.log(username)
             renderRandomCreature(randomArray[0])
+            addHealthBar(lifebar)
         }
     })
 
@@ -73,8 +75,11 @@ yes.addEventListener('click', () => {
         gameResults.innerText = `Have more confidence ${username}, you're good`
         if (lifebar.length > 1) {
             lifebar.pop()
+            healthBar.removeChild(healthBar.firstChild)
+            console.log(lifebar)
         } else if (lifebar.length === 1) {
             lifebar.pop()
+            healthBar.innerHTML = ''
             randomArray = []
             headerTwo.textContent = "Leaderboard"
             hideGame()
@@ -100,8 +105,10 @@ no.addEventListener('click', () => {
         gameResults.innerText = `No ${username} no, you're dead`
         if (lifebar.length > 1) {
             lifebar.pop()
+            healthBar.removeChild(healthBar.firstChild)
         } else if (lifebar.length === 1) {
             lifebar.pop()
+            healthBar.innerHTML = ''
             randomArray = []
             headerTwo.textContent = "Leaderboard"
             hideGame()
@@ -171,6 +178,8 @@ function devMode(){
         survivalScore = 10;
         username = "dev";
         renderRandomCreature(randomArray[0])
+        addHealthBar(lifebar)
+        console.log(lifebar)
     })
 }
 
@@ -197,6 +206,7 @@ function nextCard(arg1){
         gameCard.append(document.createElement('br'))
         gameCard.append(playAgain)
         playAgain.style.display = "inline-block"
+        healthBar.innerHTML = ''
     }
     else(renderRandomCreature(arg1))
 }
@@ -211,6 +221,7 @@ playAgain.addEventListener('click', () => {
     //hidden to start the game, will be shown upon the emptying of array
     playAgain.style.display = "none"
     lifebar = ['X', 'X', 'X']
+    addHealthBar(lifebar)
 })
 
 function hideGame(){
@@ -238,5 +249,13 @@ function renderLeaderboard(){
             leaderboardEntry.textContent = `User: ${datum.name} --- Score: ${datum.score}`
             leaderboardCard.append(leaderboardEntry)
         })
+    })
+}
+
+function addHealthBar(lifeArray) {
+    addHealthBar.innerHTML = ''
+    lifeArray.forEach(heart => {
+        let p = document.createElement('p').innerHTML = heart
+        healthBar.append(p)
     })
 }
