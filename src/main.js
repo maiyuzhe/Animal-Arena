@@ -4,46 +4,195 @@ const loginCard = document.getElementById('login-card');
 const creatureImg = document.querySelector('img');
 const gameResults = document.getElementById('results')
 const windowResY = window.screen.height;
+const headerTwo = document.querySelector('h2')
 //yes and no buttons
 const yes = document.getElementById('yes')
 const no = document.getElementById('no')
+let randomArray = []
+generateArray()
+//can toggle devmode by commenting it out
+devMode()
+
+//Survival Score and Username
+let survivalScore = 0
+let deadlinessScore = 0
+let username = ''
 
 //bases card size off of user's screen resolution
 function init(){
     gameCard.style.display = "none";
-    gameCard.style.height = (windowResY*0.8)+"px";
+    gameCard.style.height = (windowResY*0.7)+"px";
     gameCard.style['margin-top'] = '1.5%';
-    loginCard.style.height = (windowResY*0.3)+"px";
+    loginCard.style.height = (windowResY*0.4)+"px";
     //puts login fields in middle of div
-    for(let i = 0; i < (windowResY/200); i++){
+    for(let i = 0; i < (windowResY/800); i++){
         loginCard.prepend(document.createElement('br'))
     }
     //hides form and makes game card appear
     userForm.addEventListener('submit',(e) => {
         e.preventDefault()
-        gameCard.style.display ="block";
-        loginCard.style.display = "none";
-        gameResults.style.display = "none"
-        renderRandomCreature()
+        if (e.target['user-name'].value.length === 0 || e.target.gym.value === '' || e.target.height.value === '') {
+            alert('Test')
+        } else {
+            gameCard.style.display ="block";
+            loginCard.style.display = "none";
+            gameResults.style.display = "none"
+            generateSurvivalScore(e)
+            username = e.target['user-name'].value
+            console.log(username)
+            renderRandomCreature(randomArray[0])
+        }
     })
 
 }
 //grabs random creature from api
-function renderRandomCreature() {
-    let id = Math.floor(Math.random() * 3) + 1;
+function renderRandomCreature(id) {
+    console.log(randomArray)
     fetch(`http://localhost:3000/creatures/${id}`)
     .then(response => response.json())
     .then(data => {
         creatureImg.src = data.image;
         creatureImg.alt = data.name
-        document.querySelector('h2').innerText = data.name
+        deadlinessScore = data.deadliness
+        headerTwo.innerText = data.name
+        gameResults.style.display = 'none'
     })
+    //removes the first index of the array each time this function is called
+    randomArray.shift()
 }
 
 yes.addEventListener('click', () => {
     yes.style.display = 'none'
     no.style.display = 'none'
-    gameResults.style.display = 'block'
+    gameResults.style.display = 'inline-block'
+    if (survivalResults()) {
+        gameResults.innerText = `Have more confidence ${username}, you're good`
+    } else {
+        gameResults.innerText = `Yah ${username}, you better run`
+    }
+    setTimeout(nextCard(randomArray[0]), 500);
+        //change delay back to 3000 later
 })
 
+no.addEventListener('click', () => {
+    yes.style.display = 'none'
+    no.style.display = 'none'
+    gameResults.style.display = 'inline-block'
+    if (survivalResults()) {
+        gameResults.innerText = `Yah ${username}, you're right you monster`
+    } else {
+        gameResults.innerText = `No ${username} no, you're dead`
+    }
+    setTimeout(nextCard(randomArray[0]), 500);
+        //change delay back to 3000 later
+})
+
+//generate the survival score
+function generateSurvivalScore(e) {
+    let heightScore = 0;
+    let gymScore = 0;
+    
+    switch (e.target.height.value) {
+        case 'short':
+            heightScore = 2;
+            break;
+        case "average":
+            heightScore = 4;
+            break;
+        case 'tall':
+            heightScore = 6;
+            break;
+    }
+
+    switch (e.target.gym.value) {
+        case 'years':
+            gymScore = -1;
+            break;
+        case 'months':
+            gymScore = 1;
+            break;
+        case 'days':
+            gymScore = 3;
+            break;
+        case 'hours':
+            gymScore = 6;
+            break;
+    }
+    return survivalScore = heightScore + gymScore
+}
+
+//calculates survial odds
+function survivalResults() {
+    if (survivalScore >= deadlinessScore) {
+        console.log('Survive')
+        return true
+    } else {
+        console.log('Die')
+        return false
+    }
+}
+
 init()
+//added developer mode so we don't have to fill the fields out each test
+function devMode(){
+    const devButton = document.createElement('button')
+    loginCard.append(devButton)
+    devButton.textContent = "Developer Mode"
+    devButton.addEventListener(('click'), () => {
+        gameCard.style.display ="block";
+        loginCard.style.display = "none";
+        gameResults.style.display = "none"
+        survivalScore = 10;
+        username = "dev";
+        renderRandomCreature(randomArray[0])
+    })
+}
+
+//populates random array with non-repeating integers
+function generateArray(){
+    for (let i = 0; i < 5; i++){
+        let id = Math.floor(Math.random() * 20) + 1;
+        if(randomArray.includes(id) == true){
+            i=i-1;
+        }else{
+            if(id>20==false){
+                randomArray.push(id);
+            }
+        }
+    }
+}
+//arg1 should be array[0]
+function nextCard(arg1){
+    showGame()
+    if(arg1 === undefined){
+        headerTwo.textContent = "Leaderboard"
+        hideGame()
+        gameCard.append(playAgain)
+        playAgain.style.display = "inline-block"
+    }
+    else(renderRandomCreature(arg1))
+}
+//play again button
+const playAgain = document.createElement('button')
+playAgain.textContent = "Play Again?"
+playAgain.addEventListener('click', () => {
+    generateArray()
+    console.log(randomArray)
+    showGame()
+    renderRandomCreature(randomArray[0])
+    //hidden to start the game, will be shown upon the emptying of array
+    playAgain.style.display = "none"
+})
+
+function hideGame(){
+    yes.style.display = 'none'
+    no.style.display = 'none'
+    creatureImg.style.display = 'none'
+    gameResults.style.display = 'none'
+}
+function showGame(){
+    yes.style.display = 'inline-block'
+    no.style.display = 'inline-block'
+    creatureImg.style.display = 'block'
+    gameResults.style.display = 'inline-block'
+}
