@@ -120,5 +120,12 @@
             "image": "https://ichef.bbci.co.uk/news/976/cpsprodpb/12DD4/production/_124986277_tv063802223.jpg",
             "deadliness": 1000
         }
+    ],
+    "leaderboard":[
+        {
+            "id": 1,
+            "name": "user one",
+            "score": 5
+        }
     ]
 }

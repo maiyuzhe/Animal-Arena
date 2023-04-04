@@ -69,3 +69,6 @@ img#animal-image{
     margin:auto;
     width: 75%;
 }
+div#leaderboard-card{
+    font-family: Arial, Helvetica, sans-serif;
+}
