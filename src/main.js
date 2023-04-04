@@ -194,5 +194,5 @@ function showGame(){
     yes.style.display = 'inline-block'
     no.style.display = 'inline-block'
     creatureImg.style.display = 'block'
-    gameResults.style.display = 'block'
+    gameResults.style.display = 'inline-block'
 }
