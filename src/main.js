@@ -100,8 +100,7 @@ yes.addEventListener('click', () => {
         gameResults.innerText = `Yah ${username}, you better run`
         finalScore += 1
     }
-    setTimeout(nextCard(randomArray[0]), 500);
-        //change delay back to 3000 later
+    setTimeout(() => nextCard(randomArray[0]), 1500);
 })
 
 no.addEventListener('click', () => {
@@ -126,8 +125,7 @@ no.addEventListener('click', () => {
             playAgain.style.display = "inline-block"
         }
     }
-    setTimeout(nextCard(randomArray[0]), 500);
-        //change delay back to 3000 later
+    setTimeout(() => nextCard(randomArray[0]), 1500);
 })
 
 //generate the survival score
