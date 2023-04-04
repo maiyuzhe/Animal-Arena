@@ -209,6 +209,7 @@ function nextCard(arg1){
     if(arg1 === undefined){
         headerTwo.textContent = "Leaderboard"
         hideGame()
+        clearScoreboard()
         renderLeaderboard()
         gameCard.append(document.createElement('br'))
         gameCard.append(playAgain)
@@ -264,5 +265,27 @@ function addHealthBar(lifeArray) {
     lifeArray.forEach(heart => {
         let p = document.createElement('p').innerHTML = heart
         healthBar.append(p)
+    })
+}
+//function to clear scoreboard so that it doesn't keep repeating itself after multiple plays
+function clearScoreboard(){
+    while (leaderboardCard.firstChild){
+        leaderboardCard.removeChild(leaderboardCard.firstChild)
+    }
+}
+//Added patchScore to update users score upon completion.  User is always the last id.
+function patchScore(userScore){
+    fetch("http://localhost:3000/leaderboard")
+    .then(res => res.json())
+    .then((data) => {
+        console.log(data[data.length -1].id)
+        let id = data[data.length -1].id
+        fetch(`http://localhost:3000/leaderboard/${id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-type": "application/json"
+            },
+            body: JSON.stringify({score:userScore})
+        })
     })
 }
