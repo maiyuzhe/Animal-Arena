@@ -4,13 +4,14 @@
 
 }
 body {
-    background-color: black;
+    background-color: #383838;
     font-family: MyFirstFont;
     letter-spacing: 5px;
 }
 h1 {
     color: red;
     text-align: center;
+    font-size: 70px;
 }
 h2 {
     text-align: center;
@@ -38,6 +39,19 @@ form {
 .input{
     color:red;
     background-color: black;
+    border-radius: 10px;
+    text-align: center;
+}
+
+#height{
+    background-color: black;
+    color: red;
+    border-radius: 10px;
+}
+
+#gym{
+    background-color: black;
+    color: red;
     border-radius: 10px;
 }
 
