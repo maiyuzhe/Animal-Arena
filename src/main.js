@@ -33,7 +33,7 @@ function init(){
     userForm.addEventListener('submit',(e) => {
         e.preventDefault()
         if (e.target['user-name'].value.length === 0 || e.target.gym.value === '' || e.target.height.value === '') {
-            alert('Test')
+            alert('Enter all fields to continue')
         } else {
             gameCard.style.display = "flex";
             gameCard.style['justify-content']="center";
