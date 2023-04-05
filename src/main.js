@@ -22,7 +22,7 @@ let survivalScore = 0
 let deadlinessScore = 0
 let username = ''
 let finalScore = 0
-let lifebar = ['X', 'X', 'X']
+let lifebar = [' X ', ' X ', ' X ']
 devMode()
 
 //bases card size off of user's screen resolution
@@ -192,7 +192,7 @@ function devMode(){
 
 //populates random array with non-repeating integers
 function generateArray(){
-    for (let i = 0; i < 1; i++){
+    for (let i = 0; i < 5; i++){
         let id = Math.floor(Math.random() * 20) + 1;
         if(randomArray.includes(id) == true){
             i=i-1;
@@ -229,7 +229,7 @@ playAgain.addEventListener('click', () => {
     renderRandomCreature(randomArray[0])
     //hidden to start the game, will be shown upon the emptying of array
     playAgain.style.display = "none"
-    lifebar = ['X', 'X', 'X']
+    lifebar = [' X ', ' X ', ' X ']
     finalScore = 0
     addHealthBar(lifebar)
 })
