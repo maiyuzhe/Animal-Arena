@@ -12,10 +12,10 @@ leaderboardCard.id = 'leaderboard-card'
 const yes = document.getElementById('yes')
 const no = document.getElementById('no')
 let randomArray = []
+let userId = 0
 const lastEntry = document.createElement('p')
 generateArray()
 //can toggle devmode by commenting it out
-devMode()
 
 //Survival Score, Username, and Final Score
 let survivalScore = 0
@@ -23,24 +23,22 @@ let deadlinessScore = 0
 let username = ''
 let finalScore = 0
 let lifebar = ['X', 'X', 'X']
+devMode()
 
 //bases card size off of user's screen resolution
 function init(){
     gameCard.style.display = "none";
-    gameCard.style.height = (windowResY*0.7)+"px";
-    gameCard.style['margin-top'] = '1.5%';
-    loginCard.style.height = (windowResY*0.4)+"px";
-    //puts login fields in middle of div
-    for(let i = 0; i < (windowResY/800); i++){
-        loginCard.prepend(document.createElement('br'))
-    }
+    gameCard.style.margin = 'auto';
     //hides form and makes game card appear
     userForm.addEventListener('submit',(e) => {
         e.preventDefault()
         if (e.target['user-name'].value.length === 0 || e.target.gym.value === '' || e.target.height.value === '') {
             alert('Test')
         } else {
-            gameCard.style.display ="block";
+            gameCard.style.display = "flex";
+            gameCard.style['justify-content']="center";
+            gameCard.style['flex-direction']="column";
+            gameCard.style.padding = "2 rem";
             loginCard.style.display = "none";
             gameResults.style.display = "none"
             generateSurvivalScore(e)
@@ -51,7 +49,7 @@ function init(){
                     "Content-type": "application/json"
                 },
                 body: JSON.stringify({name: username})
-            })
+            }).then(res=>res.json()).then(data=>userId = data.id)
             console.log(username)
             renderRandomCreature(randomArray[0])
             addHealthBar(lifebar)
@@ -176,6 +174,7 @@ function survivalResults() {
 init()
 //added developer mode so we don't have to fill the fields out each test
 function devMode(){
+    username = 'dev'
     const devButton = document.createElement('button')
     loginCard.append(devButton)
     devButton.textContent = "Developer Mode"
@@ -193,7 +192,7 @@ function devMode(){
 
 //populates random array with non-repeating integers
 function generateArray(){
-    for (let i = 0; i < 5; i++){
+    for (let i = 0; i < 1; i++){
         let id = Math.floor(Math.random() * 20) + 1;
         if(randomArray.includes(id) == true){
             i=i-1;
@@ -211,8 +210,8 @@ function nextCard(arg1){
         headerTwo.textContent = "Leaderboard"
         hideGame()
         clearScoreboard()
-        renderLeaderboard()
         patchScore(finalScore)
+        renderLeaderboard()
         gameCard.append(document.createElement('br'))
         gameCard.append(playAgain)
         playAgain.style.display = "inline-block"
@@ -231,8 +230,8 @@ playAgain.addEventListener('click', () => {
     //hidden to start the game, will be shown upon the emptying of array
     playAgain.style.display = "none"
     lifebar = ['X', 'X', 'X']
+    finalScore = 0
     addHealthBar(lifebar)
-    leaderboardCard.removeChild(lastEntry)
 })
 
 function hideGame(){
@@ -252,6 +251,8 @@ function showGame(){
 
 function renderLeaderboard(){
     gameCard.append(leaderboardCard)
+    leaderboardCard.style.display = 'flex';
+    leaderboardCard.style['flex-direction'] = 'column';
     fetch("http://localhost:3000/leaderboard")
     .then(res => res.json())
     .then((data) => {
@@ -263,7 +264,14 @@ function renderLeaderboard(){
                 leaderboardCard.append(leaderboardEntry)
             }
         })
+        const leaderboardEntry = document.createElement('p')
+        leaderboardEntry.textContent = `User: ${username} --- Score: ${finalScore}`
+        leaderboardCard.append(leaderboardEntry)
     })
+    const yourScore = document.createElement('h4')
+    yourScore.textContent = `You scored ${finalScore} points!`
+    leaderboardCard.append(yourScore)
+
 }
 
 function addHealthBar(lifeArray) {
@@ -279,21 +287,13 @@ function clearScoreboard(){
         leaderboardCard.removeChild(leaderboardCard.firstChild)
     }
 }
-//Added patchScore to update users score upon completion.  User is always the last id.
+//Added patchScore to update users score upon completion.
 function patchScore(userScore){
-    fetch("http://localhost:3000/leaderboard")
-    .then(res => res.json())
-    .then((data) => {
-        lastEntry.textContent = `User: ${data[data.length -1 ].name} --- Score: ${userScore}`
-        leaderboardCard.append(lastEntry)
-        console.log(data[data.length -1].id)
-        let id = data[data.length -1].id
-        fetch(`http://localhost:3000/leaderboard/${id}`, {
-            method: "PATCH",
-            headers: {
-                "Content-type": "application/json"
-            },
-            body: JSON.stringify({score:userScore})
-            })
-        })
+    fetch(`http://localhost:3000/leaderboard/${userId}`, {
+        method: "PATCH",
+        headers: {
+            "Content-type": "application/json"
+        },
+        body: JSON.stringify({score:userScore})
+    })
 }
