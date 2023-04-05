@@ -265,13 +265,19 @@ function renderLeaderboard(){
             }
         })
         const leaderboardEntry = document.createElement('p')
-        leaderboardEntry.textContent = `User: ${username} --- Score: ${finalScore}`
+        leaderboardEntry.textContent = `(You)User: ${username} --- Score: ${finalScore}`
         leaderboardCard.append(leaderboardEntry)
     })
-    const yourScore = document.createElement('h4')
-    yourScore.textContent = `You scored ${finalScore} points!`
-    leaderboardCard.append(yourScore)
-
+    if(finalScore == 1){
+        const yourScore = document.createElement('h4')
+        yourScore.textContent = `You scored ${finalScore} point!`
+        leaderboardCard.append(yourScore)
+    }
+    else{
+        const yourScore = document.createElement('h4')
+        yourScore.textContent = `You scored ${finalScore} points!`
+        leaderboardCard.append(yourScore)
+    }
 }
 
 function addHealthBar(lifeArray) {
