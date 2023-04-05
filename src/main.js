@@ -106,12 +106,7 @@ yes.addEventListener('mouseover', () => {
 })
 
 yes.addEventListener('mouseout', () => {
-    setTimeout(() => {
-        yes.innerText = 'THOUGHT SO'
-    }, 500)
-    setTimeout(() => {
         yes.innerText = 'YES'
-    }, 1000)
 })
 
 no.addEventListener('click', () => {
@@ -144,12 +139,7 @@ no.addEventListener('mouseover', () => {
 })
 
 no.addEventListener('mouseout', () => {
-    setTimeout(() => {
-        no.innerText = 'SCARED, HUH?'
-    }, 500)
-    setTimeout(() => {
         no.innerText = 'NO'
-    }, 1000)
 })
 
 //generate the survival score
