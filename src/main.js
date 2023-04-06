@@ -23,7 +23,7 @@ let deadlinessScore = 0
 let username = ''
 let finalScore = 0
 let lifebar = [' X ', ' X ', ' X ']
-devMode()
+//devMode()
 
 //bases card size off of user's screen resolution
 function init(){
@@ -329,3 +329,30 @@ function patchScore(userScore){
         body: JSON.stringify({score:userScore})
     })
 }
+let devCode = [0,0,0,0]
+document.addEventListener('keydown', (e) => {
+    switch (e.keyCode){
+        case 37:
+            devCode[0]++
+            break;
+        case 38:
+            devCode[1]++
+            break;
+        case 39:
+            devCode[2]++
+            break;
+        case 40:
+            devCode[3]++
+            break;
+    }
+    if(devCode[0] == 3){
+        if(devCode[1] == 2 ){
+            if(devCode[2] == 2){
+                if(devCode[3] == 1){
+                    devMode()
+                }
+            }
+        }
+    }
+    
+})
