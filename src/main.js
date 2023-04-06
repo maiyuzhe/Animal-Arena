@@ -101,6 +101,19 @@ yes.addEventListener('click', () => {
     setTimeout(() => nextCard(randomArray[0]), 1500);
 })
 
+yes.addEventListener('mouseover', () => {
+    yes.innerText = 'YOU SURE?'
+})
+
+yes.addEventListener('mouseout', () => {
+    setTimeout(() => {
+        yes.innerText = 'THOUGHT SO'
+    }, 500)
+    setTimeout(() => {
+        yes.innerText = 'YES'
+    }, 1000)
+})
+
 no.addEventListener('click', () => {
     yes.style.display = 'none'
     no.style.display = 'none'
@@ -124,6 +137,19 @@ no.addEventListener('click', () => {
         }
     }
     setTimeout(() => nextCard(randomArray[0]), 1500);
+})
+
+no.addEventListener('mouseover', () => {
+    no.innerText = 'THAT CONFIDENT?'
+})
+
+no.addEventListener('mouseout', () => {
+    setTimeout(() => {
+        no.innerText = 'SCARED, HUH?'
+    }, 500)
+    setTimeout(() => {
+        no.innerText = 'NO'
+    }, 1000)
 })
 
 //generate the survival score
